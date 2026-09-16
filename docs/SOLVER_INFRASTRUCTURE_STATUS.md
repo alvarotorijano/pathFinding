@@ -60,9 +60,9 @@ This document summarizes the WASM solver infrastructure for instructors.
 
 **Main Repository Documentation:**
 - `WASM_SETUP.md` - Quick start for instructors
-- `docs/INSTRUCTOR_SETUP.md` - Comprehensive setup guide (deployment scenarios, troubleshooting)
-- `docs/ARCHITECTURE_OVERVIEW.md` - Full system architecture and data flow
-- `docs/reference_solver.md` - Student-facing explanation (no implementation details)
+- `INSTRUCTOR_SETUP.md` - Comprehensive setup guide (deployment scenarios, troubleshooting)
+- `ARCHITECTURE_OVERVIEW.md` - Full system architecture and data flow
+- `reference_solver.md` - Student-facing explanation (no implementation details)
 - `utils/maze_core/wasm_solver.py` - Python wrapper (graceful fallback)
 
 **Private Repository Documentation:**
@@ -96,7 +96,7 @@ python -c "import labyrinth_solver_wasm; print('✅ Ready')"
 
 ### Detailed Setup
 
-See: **[docs/INSTRUCTOR_SETUP.md](docs/INSTRUCTOR_SETUP.md)**
+See: **[INSTRUCTOR_SETUP.md](./INSTRUCTOR_SETUP.md)**
 
 Covers:
 - Prerequisites and installation
@@ -107,7 +107,7 @@ Covers:
 
 ### Understanding the Architecture
 
-See: **[docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)**
+See: **[ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)**
 
 Includes:
 - Complete system diagram
@@ -382,7 +382,7 @@ python -c "import labyrinth_solver_wasm; print('✅ Ready')"
 
 ### 4. Deploy to Your Environment
 
-Choose a strategy from [docs/INSTRUCTOR_SETUP.md](docs/INSTRUCTOR_SETUP.md):
+Choose a strategy from [INSTRUCTOR_SETUP.md](./INSTRUCTOR_SETUP.md):
 - **Local** - Just use locally
 - **Lab** - Pre-install on machines
 - **PyPI** - Upload to private package server
@@ -423,19 +423,19 @@ A: Not via the public repo (solver is private). They could theoretically reverse
 
 ### Build Issues
 
-See: **[labyrinth-solver-wasm/BUILDING.md](labyrinth-solver-wasm/BUILDING.md)**
+See: **[labyrinth-solver-wasm/BUILDING.md](../labyrinth-solver-wasm/BUILDING.md)**
 
 ### Deployment Issues
 
-See: **[labyrinth-solver-wasm/DISTRIBUTION.md](labyrinth-solver-wasm/DISTRIBUTION.md)**
+See: **[labyrinth-solver-wasm/DISTRIBUTION.md](../labyrinth-solver-wasm/DISTRIBUTION.md)**
 
 ### Setup Issues
 
-See: **[docs/INSTRUCTOR_SETUP.md](docs/INSTRUCTOR_SETUP.md)**
+See: **[INSTRUCTOR_SETUP.md](./INSTRUCTOR_SETUP.md)**
 
 ### System Architecture
 
-See: **[docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md)**
+See: **[ARCHITECTURE_OVERVIEW.md](./ARCHITECTURE_OVERVIEW.md)**
 
 ---
 

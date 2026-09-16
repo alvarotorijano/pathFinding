@@ -700,9 +700,9 @@ A: Framework still works (skips optimal metrics). Your agent tests still run. Yo
 
 ## References
 
-- [docs/INSTRUCTOR_SETUP.md](INSTRUCTOR_SETUP.md) - Step-by-step setup guide
-- [WASM_SETUP.md](../WASM_SETUP.md) - Quick reference for instructors
-- [docs/reference_solver.md](reference_solver.md) - Student-facing explanation
+- [INSTRUCTOR_SETUP.md](./INSTRUCTOR_SETUP.md) - Step-by-step setup guide
+- [WASM_SETUP.md](./WASM_SETUP.md) - Quick reference for instructors
+- [reference_solver.md](./reference_solver.md) - Student-facing explanation
 - [labyrinth-solver-wasm/BUILDING.md](../labyrinth-solver-wasm/BUILDING.md) - Build details
 - [labyrinth-solver-wasm/DISTRIBUTION.md](../labyrinth-solver-wasm/DISTRIBUTION.md) - Deployment strategies
 

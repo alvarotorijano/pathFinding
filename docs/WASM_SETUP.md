@@ -41,7 +41,7 @@ Done! The framework now calculates optimal metrics.
 
 ## Comprehensive Setup Guide
 
-**For detailed setup instructions**, see: [`docs/INSTRUCTOR_SETUP.md`](docs/INSTRUCTOR_SETUP.md)
+**For detailed setup instructions**, see: [`INSTRUCTOR_SETUP.md`](./INSTRUCTOR_SETUP.md)
 
 That document covers:
 - Step-by-step build process
@@ -172,7 +172,7 @@ Optimality: 94.8%       ← Only visible to instructors
    Results should show `optimal_solved: True`
 
 5. **Deploy to your teaching environment**
-   - See `docs/INSTRUCTOR_SETUP.md` for distribution strategies
+   - See [`INSTRUCTOR_SETUP.md`](./INSTRUCTOR_SETUP.md) for distribution strategies
 
 ---
 
@@ -192,7 +192,7 @@ Optimality: 94.8%       ← Only visible to instructors
 
 1. Clone the private `labyrinth-solver-wasm` repository
 2. Follow the Quick Start above to build and install
-3. Refer to [`docs/INSTRUCTOR_SETUP.md`](docs/INSTRUCTOR_SETUP.md) for deployment options
+3. Refer to [`INSTRUCTOR_SETUP.md`](./INSTRUCTOR_SETUP.md) for deployment options
 4. Test locally before deploying to your environment
 
 ---

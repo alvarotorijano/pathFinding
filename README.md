@@ -46,7 +46,35 @@ python -m labyrinth run \
 
 ### 4. Implement Your First Agent
 
-See [Student Guide](./docs/student_guide.md) for step-by-step instructions.
+See [Your First Agent](./docs/YOUR_FIRST_AGENT.md) for step-by-step instructions.
+
+---
+
+## 📚 Documentation
+
+### For Students
+
+**Just starting?** Read these in order:
+1. **[Student Setup](./docs/STUDENT_SETUP.md)** — Installation and first steps (5 minutes)
+2. **[Your First Agent](./docs/YOUR_FIRST_AGENT.md)** — Write Random, DFS, and BFS agents (tutorial)
+3. **[Student Guide](./docs/student_guide.md)** — Detailed walkthrough
+4. **[API Reference](./docs/api_reference.md)** — Framework API documentation
+
+### For Instructors
+
+**Setup and evaluation:**
+1. **[Quick Start (Instructors)](./docs/QUICK_START_INSTRUCTOR.md)** — 10-minute setup checklist
+2. **[WASM Solver Setup](./docs/WASM_SETUP.md)** — Reference solver setup
+3. **[Instructor Setup Guide](./docs/INSTRUCTOR_SETUP.md)** — Comprehensive guide with deployment options
+4. **[Architecture Overview](./docs/ARCHITECTURE_OVERVIEW.md)** — System design and security
+
+### Reference
+
+- **[Delivery Summary](./docs/DELIVERY_SUMMARY.md)** — What's been built
+- **[Solver Infrastructure Status](./docs/SOLVER_INFRASTRUCTURE_STATUS.md)** — Current status
+- **[Maze Format](./docs/maze_format.md)** — `.maze` file specification
+- **[Reference Solver](./docs/reference_solver.md)** — How the optimal solution works
+- **[CLI Reference](./docs/cli_reference.md)** — Command-line reference
 
 ---
 
@@ -80,10 +108,10 @@ pip install target/wheels/labyrinth_solver_wasm-*.whl
 ```
 
 For detailed setup and deployment:
-- **[WASM_SETUP.md](./WASM_SETUP.md)** — Quick reference
+- **[WASM_SETUP.md](./docs/WASM_SETUP.md)** — Quick reference
 - **[Instructor Setup Guide](./docs/INSTRUCTOR_SETUP.md)** — Step-by-step with deployment options
 - **[Architecture Overview](./docs/ARCHITECTURE_OVERVIEW.md)** — System design and security model
-- **[Status Report](./SOLVER_INFRASTRUCTURE_STATUS.md)** — What's included and how to use it
+- **[Status Report](./docs/SOLVER_INFRASTRUCTURE_STATUS.md)** — What's included and how to use it
 
 **Note:** The framework works perfectly fine without the solver (all tests pass). The WASM solver is instructor infrastructure for calculating optimal metrics during evaluation.
 
@@ -195,14 +223,9 @@ See [CLI Documentation](./docs/cli_reference.md) for complete command reference.
 
 ---
 
-## Documentation
+## Complete Documentation Index
 
-- **[Student Guide](./docs/student_guide.md)** — How to implement your first agent
-- **[API Reference](./docs/api_reference.md)** — Complete API documentation
-- **[Maze Format](./docs/maze_format.md)** — `.maze` file specification
-- **[Architecture](./docs/architecture.md)** — System design overview
-- **[CLAUDE.md](./CLAUDE.md)** — Project constraints and standards
-- **[Reference Solver](./docs/reference_solver.md)** — About the private WASM solver
+See the **[Documentation](./docs/)** section above for the full list of guides organized by audience (students/instructors) and topic.
 
 ---
 
@@ -269,7 +292,7 @@ class MyAgent(Agent):
 maze run --maze maze.maze --agent my_agent --visualize
 ```
 
-See [Student Guide](./docs/student_guide.md) for detailed walkthrough.
+See [Your First Agent](./docs/YOUR_FIRST_AGENT.md) for a detailed tutorial, or [Student Guide](./docs/student_guide.md) for a comprehensive walkthrough.
 
 ---
 

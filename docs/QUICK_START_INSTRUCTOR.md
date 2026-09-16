@@ -101,7 +101,7 @@ python -m labyrinth run \
 | Issue | Solution |
 |-------|----------|
 | "command not found: maturin" | `pip install maturin` |
-| Build fails | Check [BUILDING.md](labyrinth-solver-wasm/BUILDING.md) |
+| Build fails | Check [labyrinth-solver-wasm/BUILDING.md](../labyrinth-solver-wasm/BUILDING.md) |
 | Import fails | Reinstall wheel: `pip install --force-reinstall target/wheels/*.whl` |
 | Can't access repo | Contact admin for private repo access |
 
@@ -132,7 +132,7 @@ python -m labyrinth run \
 - Binary never exposed as source
 - **Best for:** Enterprise, security-conscious
 
-**See [Instructor Setup Guide](./docs/INSTRUCTOR_SETUP.md) for details on each.**
+**See [Instructor Setup Guide](./INSTRUCTOR_SETUP.md) for details on each.**
 
 ---
 
@@ -148,12 +148,12 @@ python -m labyrinth run \
 ## Documentation
 
 - **[WASM_SETUP.md](./WASM_SETUP.md)** — Reference guide
-- **[Instructor Setup Guide](./docs/INSTRUCTOR_SETUP.md)** — Detailed setup + deployment
-- **[Architecture Overview](./docs/ARCHITECTURE_OVERVIEW.md)** — How it all works
+- **[Instructor Setup Guide](./INSTRUCTOR_SETUP.md)** — Detailed setup + deployment
+- **[Architecture Overview](./ARCHITECTURE_OVERVIEW.md)** — How it all works
 - **[Status Report](./SOLVER_INFRASTRUCTURE_STATUS.md)** — What's included
 
 ---
 
 **That's it!** You now have optimal metrics for evaluating student agents.
 
-Need help? Check the docs or see [BUILDING.md](labyrinth-solver-wasm/BUILDING.md) in the solver repo.
+Need help? Check the docs or see [labyrinth-solver-wasm/BUILDING.md](../labyrinth-solver-wasm/BUILDING.md) in the solver repo.
