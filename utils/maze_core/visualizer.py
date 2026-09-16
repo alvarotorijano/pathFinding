@@ -7,23 +7,23 @@ from .models import Maze, Position, Direction
 class MazeVisualizer:
     """Render maze and agent position in ASCII terminal."""
 
-    # Symbols
-    WALL_H = "─"      # Horizontal wall
-    WALL_V = "│"      # Vertical wall
-    CORNER = "┼"      # Corner
-    CORNER_TL = "┌"   # Top-left
-    CORNER_TR = "┐"   # Top-right
-    CORNER_BL = "└"   # Bottom-left
-    CORNER_BR = "┘"   # Bottom-right
-    WALL_T = "┬"      # T-junction top
-    WALL_B = "┴"      # T-junction bottom
-    WALL_L = "├"      # T-junction left
-    WALL_R = "┤"      # T-junction right
+    # Symbols (ASCII for Windows compatibility)
+    WALL_H = "-"      # Horizontal wall
+    WALL_V = "|"      # Vertical wall
+    CORNER = "+"      # Corner
+    CORNER_TL = "+"   # Top-left
+    CORNER_TR = "+"   # Top-right
+    CORNER_BL = "+"   # Bottom-left
+    CORNER_BR = "+"   # Bottom-right
+    WALL_T = "+"      # T-junction top
+    WALL_B = "+"      # T-junction bottom
+    WALL_L = "+"      # T-junction left
+    WALL_R = "+"      # T-junction right
     PASSAGE = " "     # Open passage
-    AGENT = "●"       # Agent position
+    AGENT = "*"       # Agent position
     START = "S"       # Start position
     GOAL = "G"        # Goal position
-    PATH = "·"        # Path taken
+    PATH = "."        # Path taken
 
     def __init__(self, maze: Maze, show_path: bool = True):
         """

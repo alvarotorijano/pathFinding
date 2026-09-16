@@ -226,15 +226,20 @@ class MazeGenerator:
 
         Creates two separate regions with no connection.
         """
-        cells = [[Cell(walls=0b0000, cost=1.0) for _ in range(self.width)]
-                 for _ in range(self.height)]
+        # Start with a perfect maze
+        cells = self._generate_perfect()
 
-        # Create vertical wall down the middle
+        # Create vertical wall down the middle to split regions
         mid_x = self.width // 2
         for y in range(self.height):
+            # Block EAST passage (set bit to 0 = wall)
             cell = cells[y][mid_x]
-            # Block EAST passage on left side
-            cell.walls = cell.walls & ~(1 << 2)  # Clear EAST bit
+            cell.walls = cell.walls & ~(1 << 2)
+
+            # Block WEST passage on the right side (set bit to 0 = wall)
+            if mid_x + 1 < self.width:
+                right_cell = cells[y][mid_x + 1]
+                right_cell.walls = right_cell.walls & ~(1 << 0)
 
         return cells
 
