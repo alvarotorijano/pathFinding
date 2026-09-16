@@ -6,6 +6,7 @@ from typing import Dict, Any, List
 from .agent import Agent
 from .models import Maze, Observation, Direction, MazeResult
 from .wasm_solver import solve_maze as wasm_solve_maze
+from .visualizer import MazeVisualizer
 
 
 class Simulator:
@@ -15,7 +16,8 @@ class Simulator:
     Handles step-by-step execution, validation, and evaluation.
     """
 
-    def __init__(self, maze: Maze, agent: Agent, max_steps: int = 10000):
+    def __init__(self, maze: Maze, agent: Agent, max_steps: int = 10000,
+                 visualize: bool = False, speed: float = 1.0):
         """
         Initialize simulator.
 
@@ -23,10 +25,15 @@ class Simulator:
             maze: Maze to solve
             agent: Agent to run
             max_steps: Maximum steps before timeout
+            visualize: Whether to show maze visualization
+            speed: Animation speed (higher = faster)
         """
         self.maze = maze
         self.agent = agent
         self.max_steps = max_steps
+        self.visualize = visualize
+        self.speed = speed
+        self.visualizer = MazeVisualizer(maze) if visualize else None
 
     def run(self, record_trace: bool = True) -> MazeResult:
         """
@@ -45,6 +52,11 @@ class Simulator:
         steps = 0
         nodes_explored = set()
         invalid_moves = 0
+
+        # Show initial maze
+        if self.visualize:
+            print(f"\n{self.agent.__class__.__name__} solving maze ({self.maze.width}x{self.maze.height})...\n")
+            self.visualizer.show(position, self.speed)
 
         while steps < self.max_steps:
             # Create observation
@@ -90,6 +102,12 @@ class Simulator:
             position = new_pos
             nodes_explored.add((position.x, position.y))
             steps += 1
+
+            # Visualize
+            if self.visualize:
+                self.visualizer.record_step(position)
+                self.visualizer.show(position, self.speed)
+                print(f"Step {steps}: moved {direction.name}, cost={path_cost:.1f}")
 
             # Record trace
             if record_trace:

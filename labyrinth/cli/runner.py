@@ -92,7 +92,8 @@ def cmd_run(args):
     agent_instance = agents[args.agent]()
 
     # Run simulation
-    simulator = Simulator(maze, agent_instance, max_steps=args.max_steps)
+    simulator = Simulator(maze, agent_instance, max_steps=args.max_steps,
+                         visualize=args.visualize, speed=args.speed)
     result = simulator.run()
 
     # Print results
@@ -169,6 +170,10 @@ def main():
     run_parser.add_argument("--seed", type=int, default=42)
     run_parser.add_argument("--max-steps", type=int, default=10000)
     run_parser.add_argument("--output-trace", default=None)
+    run_parser.add_argument("--visualize", action="store_true",
+                           help="Show maze visualization in terminal")
+    run_parser.add_argument("--speed", type=float, default=2.0,
+                           help="Animation speed (higher = faster)")
     run_parser.set_defaults(func=cmd_run)
 
     # List command
