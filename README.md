@@ -12,8 +12,8 @@ Students implement search agents (BFS, DFS, Dijkstra, Greedy, A*, etc.) to navig
 
 ```bash
 # Clone the repository
-git clone <repo_url>
-cd labyrinth
+git clone https://github.com/alvarotorijano/pathFinding
+cd pathFinding
 
 # Create virtual environment
 python -m venv venv
@@ -39,7 +39,7 @@ python -m labyrinth generate \
 ```bash
 python -m labyrinth run \
     --maze maze.maze \
-    --agent bfs_agent \
+    --agent dfs_agent \
     --visualize \
     --speed 10
 ```
