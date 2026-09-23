@@ -1,9 +1,9 @@
 # Your First Agent - Step by Step
 
 In this guide, you'll implement **three search agents** from scratch:
-1. **Random** - Baseline agent (moves randomly)
-2. **Depth-First Search (DFS)** - Uninformed search
-3. **Breadth-First Search (BFS)** - Uninformed search (already done as example)
+1. **Random** - Baseline agent (moves randomly, already done as example in `agents/random_agent/`)
+2. **Depth-First Search (DFS)** - Uninformed search (already done as example in `agents/dfs_agent/`)
+3. **Breadth-First Search (BFS)** - Uninformed search
 
 ---
 
@@ -131,7 +131,7 @@ Use this as a **baseline** to compare your algorithms against. If your agent is 
 ## Command
 
 ```bash
-python -m labyrinth run --maze maze.maze --agent random_agent
+python -m labyrinth run --maze-file maze.maze --agent random_agent
 ```
 ```
 
@@ -218,7 +218,7 @@ class MyDFSAgent(Agent):
 ### Test It
 
 ```bash
-python -m labyrinth run --maze maze.maze --agent my_dfs_agent
+python -m labyrinth run --maze-file maze.maze --agent my_dfs_agent
 ```
 
 ---
@@ -257,7 +257,7 @@ This is why your agent can maintain data structures like `stack`, `queue`, `visi
 ```bash
 python -m labyrinth generate --width 15 --height 15 --type perfect --seed 42 --output test.maze
 
-python -m labyrinth run --maze test.maze --agent my_dfs_agent
+python -m labyrinth run --maze-file test.maze --agent my_dfs_agent
 ```
 
 Output:
@@ -342,7 +342,7 @@ def step(self, observation: Observation) -> Direction:
 
 Then run:
 ```bash
-python -m labyrinth run --maze small.maze --agent my_agent 2>&1 | head -50
+python -m labyrinth run --maze-file small.maze --agent my_agent 2>&1 | head -50
 ```
 
 ---
@@ -358,7 +358,7 @@ python -m labyrinth run --maze small.maze --agent my_agent 2>&1 | head -50
 
 ## Example: BFS (for reference)
 
-Here's how BFS differs from DFS (already in `agents/bfs_agent/`):
+Here's how BFS differs from the DFS example (already in `agents/dfs_agent/`):
 
 ```python
 from collections import deque  # Queue (FIFO) instead of list (LIFO)
@@ -408,8 +408,8 @@ class BFSAgent(Agent):
 2. Create `agents/my_dfs_agent/` and copy the DFS code
 3. Run them:
    ```bash
-   python -m labyrinth run --maze test.maze --agent random_agent
-   python -m labyrinth run --maze test.maze --agent my_dfs_agent
+   python -m labyrinth run --maze-file test.maze --agent random_agent
+   python -m labyrinth run --maze-file test.maze --agent my_dfs_agent
    ```
 4. Compare results - DFS should be much better than Random!
 

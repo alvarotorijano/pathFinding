@@ -81,8 +81,8 @@ The framework provides:
 ```
 labyrinth/
 ├── agents/              # Student agent implementations
-│   ├── bfs_agent/
 │   ├── dfs_agent/
+│   ├── random_agent/
 │   └── ...
 ├── mazes/               # Generated and example mazes
 │   ├── examples/

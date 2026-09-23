@@ -35,7 +35,7 @@ Muestra métricas en tiempo real:
 python -m labyrinth run --agent random_agent --maze-file path/to/maze.maze --visualize
 
 # Con control de velocidad base (1.0x = normal, 2.0 = 2x más rápido)
-python -m labyrinth run --agent bfs_agent --width 20 --height 20 --visualize --speed 2.0
+python -m labyrinth run --agent dfs_agent --width 20 --height 20 --visualize --speed 2.0
 ```
 
 ### Desde Python
@@ -43,14 +43,14 @@ python -m labyrinth run --agent bfs_agent --width 20 --height 20 --visualize --s
 ```python
 from utils.maze_core.generator import MazeGenerator, TopologyType, CostMapType
 from utils.maze_core.simulator import Simulator
-from agents.bfs_agent.agent import BFSAgent
+from agents.dfs_agent.agent import DFSAgent
 
 # Generar laberinto
 gen = MazeGenerator(20, 20, seed=42)
 maze = gen.generate(topology=TopologyType.PERFECT)
 
 # Crear agente
-agent = BFSAgent()
+agent = DFSAgent()
 
 # Ejecutar con visualización
 simulator = Simulator(maze, agent, visualize=True, speed=2.0)

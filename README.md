@@ -38,7 +38,7 @@ python -m labyrinth generate \
 
 ```bash
 python -m labyrinth run \
-    --maze maze.maze \
+    --maze-file maze.maze \
     --agent dfs_agent \
     --visualize \
     --speed 10
@@ -132,8 +132,8 @@ labyrinth/
 │   ├── maze_visualizer/    # Visualization tools
 │   └── ...
 ├── agents/                 # Student agent implementations
-│   ├── bfs_agent/          # Example: BFS
 │   ├── dfs_agent/          # Example: DFS
+│   ├── random_agent/       # Example: Random baseline
 │   └── ...
 ├── mazes/                  # Maze files
 │   ├── examples/           # Example mazes
@@ -176,13 +176,13 @@ maze generate --width 30 --height 30 --type perfect --cost-map random --cost-ran
 
 ```bash
 # Full map, realtime visualization
-maze run --maze perfect.maze --agent bfs_agent --visualize
+maze run --maze-file perfect.maze --agent dfs_agent --visualize
 
 # With specific parameters
-maze run --maze costs.maze --agent dijkstra_agent --visualize --speed 5 --max-steps 5000
+maze run --maze-file costs.maze --agent dijkstra_agent --visualize --speed 5 --max-steps 5000
 
 # Partial observability
-maze run --maze perfect.maze --agent my_agent --visibility radius --radius 3 --visualize
+maze run --maze-file perfect.maze --agent my_agent --visibility radius --radius 3 --visualize
 
 # Generate inline, run, output trace
 maze run --width 25 --height 25 --type perfect --agent a_star_agent --output-trace result.json
@@ -191,10 +191,10 @@ maze run --width 25 --height 25 --type perfect --agent a_star_agent --output-tra
 ### Benchmark Agents
 
 ```bash
-# Compare BFS and DFS on all mazes in directory
+# Compare agents on all mazes in directory
 maze benchmark \
     --maze-dir ./mazes/examples \
-    --agents bfs_agent,dfs_agent \
+    --agents dfs_agent,random_agent \
     --output results.csv
 ```
 
@@ -231,18 +231,10 @@ See the **[Documentation](./docs/)** section above for the full list of guides o
 
 ## Example Agents
 
-### BFS (Breadth-First Search)
-
-```bash
-maze run --maze maze.maze --agent bfs_agent --visualize
-```
-
-Explores level-by-level. Good for finding shortest path with uniform costs.
-
 ### DFS (Depth-First Search)
 
 ```bash
-maze run --maze maze.maze --agent dfs_agent --visualize
+maze run --maze-file maze.maze --agent dfs_agent --visualize
 ```
 
 Explores depth-first. Uses less memory but may find longer paths.
@@ -289,7 +281,7 @@ class MyAgent(Agent):
 3. Run your agent:
 
 ```bash
-maze run --maze maze.maze --agent my_agent --visualize
+maze run --maze-file maze.maze --agent my_agent --visualize
 ```
 
 See [Your First Agent](./docs/YOUR_FIRST_AGENT.md) for a detailed tutorial, or [Student Guide](./docs/student_guide.md) for a comprehensive walkthrough.

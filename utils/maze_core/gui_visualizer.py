@@ -206,13 +206,6 @@ Step: {self.step_count}
 Path Cost: {self.path_cost:.1f}
 
 Status: {'PAUSED' if self.paused else 'RUNNING' if self.running else 'STOPPED'}
-
-Legend:
-  START (S)
-  GOAL (G)
-  AGENT (*)
-  PATH (.)
-  FRONTIER (#)
 """
         self.info_text.config(state=tk.NORMAL)
         self.info_text.delete(1.0, tk.END)

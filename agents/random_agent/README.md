@@ -45,10 +45,10 @@ Invalid Moves: 0
 python -m labyrinth generate --width 10 --height 10 --type perfect --seed 42 --output maze.maze
 
 # Run the Random Agent
-python -m labyrinth run --maze maze.maze --agent random_agent
+python -m labyrinth run --maze-file maze.maze --agent random_agent
 
 # With visualization
-python -m labyrinth run --maze maze.maze --agent random_agent --visualize --speed 5
+python -m labyrinth run --maze-file maze.maze --agent random_agent --visualize --speed 5
 ```
 
 ## Algorithm Complexity
@@ -63,6 +63,4 @@ python -m labyrinth run --maze maze.maze --agent random_agent --visualize --spee
 ## See Also
 
 - [Your First Agent](../../docs/YOUR_FIRST_AGENT.md) - Tutorial on writing agents
-- [API Reference](../../docs/api_reference.md) - Framework API
-- [BFS Agent](../bfs_agent/) - Example of a better algorithm
-- [DFS Agent](../dfs_agent/) - Another search algorithm
+- [DFS Agent](../dfs_agent/) - Example of a better algorithm

@@ -129,8 +129,8 @@ The labyrinth framework is split into **two repositories**:
 ```
 labyrinth/
 ├── agents/
-│   ├── bfs_agent/
 │   ├── dfs_agent/
+│   ├── random_agent/
 │   └── ... (student agents)
 ├── utils/maze_core/
 │   ├── models.py         (Cell, Maze, Observation, etc.)

@@ -135,7 +135,7 @@ def step(self, observation: Observation) -> Direction:
     return best or neighbors[0]
 ```
 
-### BFS (See `agents/bfs_agent/` for full example)
+### BFS (see `agents/dfs_agent/` for a full, working search-agent example)
 
 ```python
 from collections import deque
@@ -226,5 +226,5 @@ Invalid Moves: 0
 ## Files to Reference
 
 - `utils/maze_core/models.py` - Data structures (Direction, Position, Maze, etc.)
-- `agents/bfs_agent/agent.py` - Full BFS example
 - `agents/dfs_agent/agent.py` - Full DFS example
+- `agents/random_agent/agent.py` - Full baseline example

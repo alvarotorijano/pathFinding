@@ -47,3 +47,4 @@ results/
 *.maze
 mazes/generated/
 *.log
+soluciones/

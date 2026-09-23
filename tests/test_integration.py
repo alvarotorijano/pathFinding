@@ -12,7 +12,6 @@ import tempfile
 from utils.maze_core.generator import MazeGenerator, TopologyType, CostMapType
 from utils.maze_core.formats import MazeFormat
 from utils.maze_core.simulator import Simulator
-from agents.bfs_agent.agent import BFSAgent
 from agents.dfs_agent.agent import DFSAgent
 
 
@@ -39,8 +38,8 @@ class TestFullWorkflow:
         assert loaded_maze.height == maze.height
         assert loaded_maze.seed == maze.seed
 
-        # Run BFS
-        agent = BFSAgent()
+        # Run DFS
+        agent = DFSAgent()
         simulator = Simulator(loaded_maze, agent)
         result = simulator.run(record_trace=True)
 
@@ -51,16 +50,16 @@ class TestFullWorkflow:
         # Cleanup
         Path(temp_file).unlink()
 
-    def test_bfs_finds_solution(self):
-        """Test that BFS finds a solution on perfect maze."""
+    def test_dfs_finds_solution_on_another_maze(self):
+        """Test that DFS finds a solution on a different perfect maze."""
         gen = MazeGenerator(8, 8, seed=123)
         maze = gen.generate(topology=TopologyType.PERFECT)
 
-        agent = BFSAgent()
+        agent = DFSAgent()
         simulator = Simulator(maze, agent, max_steps=10000)
         result = simulator.run()
 
-        assert result.solved, "BFS should find solution in perfect maze"
+        assert result.solved, "DFS should find solution in perfect maze"
         assert result.steps > 0
         assert result.path_cost > 0
 
@@ -81,7 +80,7 @@ class TestFullWorkflow:
         gen = MazeGenerator(10, 10, seed=999)
         maze = gen.generate(topology=TopologyType.UNSOLVABLE)
 
-        agent = BFSAgent()
+        agent = DFSAgent()
         simulator = Simulator(maze, agent, max_steps=100)
         result = simulator.run()
 
@@ -92,7 +91,7 @@ class TestFullWorkflow:
         gen = MazeGenerator(8, 8, seed=789)
         maze = gen.generate(topology=TopologyType.MULTIPLE)
 
-        agent = BFSAgent()
+        agent = DFSAgent()
         simulator = Simulator(maze, agent)
         result = simulator.run()
 
