@@ -6,8 +6,6 @@ path) is already implemented, using the same structure as the DFS example
 in agents/dfs_agent/agent.py.
 """
 
-import heapq
-from itertools import count
 from typing import Optional
 
 from utils.maze_core.agent import Agent
@@ -25,7 +23,7 @@ class AStarAgent(Agent):
 
     def __init__(self):
         """Initialize A* state."""
-        self.frontier = []      # heap of (f, tie_breaker, position)
+        self.frontier = []      # list of candidate positions
         self.explored = set()
         self.parent = {}
         self.g_score = {}
@@ -44,14 +42,12 @@ class AStarAgent(Agent):
         Returns:
             Next direction to move
         """
-        tie_breaker = count()
-
         if self.maze != id(observation.maze):
             # New maze, initialize search
             self.maze = id(observation.maze)
             self.goal = observation.goal
             start = observation.current
-            self.frontier = [(self._heuristic(start, self.goal), next(tie_breaker), start)]
+            self.frontier = [start]
             self.explored = set()
             self.parent = {start: None}
             self.g_score = {start: 0.0}
@@ -96,7 +92,7 @@ class AStarAgent(Agent):
     def debug_state(self) -> Optional[AgentDebugState]:
         """Return visualization data."""
         return AgentDebugState(
-            frontier={position for _, _, position in self.frontier},
+            frontier=set(self.frontier),
             explored=self.explored,
             current_path=self.path,
         )
