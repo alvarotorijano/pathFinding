@@ -144,7 +144,10 @@ class AStarAgent(Agent):
             return path
 
         # PASO 4: Cerrar el nodo
-        # TODO: Mover a CLOSED
+        # Mover el nodo actual de OPEN a CLOSED
+        # (ya lo sacamos de OPEN en PASO 2)
+        # Ahora marcarlo como explorado
+        self.closed_set.add(current_pos)
 
         # PASO 5: Examinar vecinos
         # TODO: Expandir y actualizar costos
