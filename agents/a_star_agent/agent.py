@@ -40,7 +40,6 @@ class AStarAgent(Agent):
         Execute one step of the A* algorithm.
 
         On first call, initializes the algorithm with start position.
-        On subsequent calls, performs A* iterations and returns the next direction.
 
         Parameters:
             observation: Current maze state and agent position
@@ -48,43 +47,73 @@ class AStarAgent(Agent):
         Returns:
             Direction: Next movement direction (NORTH, SOUTH, EAST, WEST)
         """
-        # TODO: Implement A* step logic
-        # 1. On first call: initialize OPEN, CLOSED, g_score, parent
-        # 2. Loop until path is found or OPEN is empty
-        # 3. Return next direction from reconstructed path
-        pass
+        # PASO 1: Detectar primera llamada e inicializar
+        if self.start_pos is None:
+            # Es la primera vez que se llama a step()
+            # Inicializar todas las estructuras de A*
+            self._initialize_search(observation.current, observation.goal)
+
+        # TODO: Implementar PASO 2-6 del algoritmo A*
+        # Por ahora solo retornamos una dirección cualquiera
+        return Direction.NORTH
 
     def _initialize_search(self, start: Position, goal: Position) -> None:
         """
         Initialize A* search structures.
 
-        Performs:
-        - Clear previous search state
-        - Add start node to OPEN with g=0, f=h(start)
-        - Initialize data structures
+        PASO 1: Inicializar
+        Prepara todas las estructuras de datos para comenzar la búsqueda A*.
 
         Parameters:
             start: Starting position
             goal: Goal position
         """
-        # TODO: Implement initialization
-        # 1. Clear open_set, closed_set, g_score, parent
-        # 2. Calculate h(start) using heuristic
-        # 3. Add (f_score, counter, start) to open_set heap
-        # 4. Set g_score[start] = 0
-        # 5. Set parent[start] = None
-        pass
+        # 1. Limpiar estructuras de búsquedas anteriores
+        self.open_set.clear()
+        self.closed_set.clear()
+        self.g_score.clear()
+        self.parent.clear()
+
+        # 2. Limpiar camino y índice de búsquedas anteriores
+        self.path.clear()
+        self.path_index = 0
+
+        # 3. Guardar posiciones de referencia
+        self.start_pos = start
+        self.goal_pos = goal
+
+        # 4. Calcular valores del nodo inicial
+        # h(inicio) = heurística desde inicio al objetivo
+        h_start = self._heuristic(start, goal)
+
+        # g(inicio) siempre es 0 (estamos en el inicio)
+        g_start = 0.0
+
+        # f(inicio) = g(inicio) + h(inicio)
+        f_start = g_start + h_start
+
+        # 5. Añadir nodo inicial a OPEN
+        # OPEN es una lista de tuplas (f_score, posición)
+        self.open_set.append((f_start, start))
+
+        # 6. Guardar costos reales en g_score
+        # g_score[posición] = costo real desde inicio
+        self.g_score[start] = g_start
+
+        # 7. Guardar relación padre-hijo en parent
+        # parent[posición] = posición_padre (None para el inicio)
+        self.parent[start] = None
 
     def _search_step(self, maze: 'Maze', goal: Position) -> Optional[List[Direction]]:
         """
         Execute one iteration of the A* main loop.
 
-        Process:
-        1. Pick best node from OPEN (minimum f)
-        2. Check if it's the goal
-        3. Move it to CLOSED
-        4. Expand neighbors
-        5. Update costs if better paths found
+        Implements steps 2-6 of the algorithm:
+        - PASO 2: Pick best node from OPEN (minimum f)
+        - PASO 3: Check if it's the goal
+        - PASO 4: Move it to CLOSED
+        - PASO 5: Expand neighbors
+        - PASO 6: Return None to continue
 
         Parameters:
             maze: The maze to search
@@ -93,17 +122,31 @@ class AStarAgent(Agent):
         Returns:
             Path as list of Directions if goal found, None if still searching
         """
-        # TODO: Implement A* iteration
-        # 1. If OPEN is empty, return None (no solution)
-        # 2. Get node with minimum f from OPEN
-        # 3. If node is goal, reconstruct and return path
-        # 4. Move node to CLOSED
-        # 5. For each neighbor:
-        #    a. Skip if in CLOSED
-        #    b. Calculate g_provisional
-        #    c. Update/add to OPEN if better path found
-        # 6. Return None (continue searching)
-        pass
+        # PASO 2: Elegir el mejor candidato
+        # ¿Hay nodos en OPEN?
+        if not self.open_set:
+            # OPEN está vacía: sin solución
+            return None
+
+        # Encontrar el nodo con menor f
+        # OPEN es una lista de tuplas (f, Position)
+        best_node = min(self.open_set, key=lambda x: x[0])
+        f_current, current_pos = best_node
+
+        # Sacarlo de OPEN
+        self.open_set.remove(best_node)
+
+        # PASO 3: ¿Es el objetivo?
+        # TODO: Implementar comprobación de objetivo
+
+        # PASO 4: Cerrar el nodo
+        # TODO: Mover a CLOSED
+
+        # PASO 5: Examinar vecinos
+        # TODO: Expandir y actualizar costos
+
+        # PASO 6: Continuar búsqueda
+        return None
 
     def _heuristic(self, position: Position, goal: Position) -> float:
         """
@@ -121,9 +164,10 @@ class AStarAgent(Agent):
         Returns:
             Estimated cost to reach goal from position
         """
-        # TODO: Implement Manhattan distance
-        # return |position.x - goal.x| + |position.y - goal.y|
-        pass
+        # Distancia Manhattan: suma de diferencias absolutas en x e y
+        dx = abs(position.x - goal.x)
+        dy = abs(position.y - goal.y)
+        return float(dx + dy)
 
     def _get_neighbors(self, maze: 'Maze', position: Position) -> List[Position]:
         """
