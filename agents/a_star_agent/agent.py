@@ -149,10 +149,49 @@ class AStarAgent(Agent):
         # Ahora marcarlo como explorado
         self.closed_set.add(current_pos)
 
-        # PASO 5: Examinar vecinos
-        # TODO: Expandir y actualizar costos
+        # PASO 5: Examinar vecinos del nodo actual
+        neighbors = self._get_neighbors(maze, current_pos)
 
-        # PASO 6: Continuar búsqueda
+        for neighbor in neighbors:
+            # 5a) Si el vecino está en CLOSED, ignorarlo
+            if neighbor in self.closed_set:
+                continue
+
+            # 5b) Calcular g provisional: g(actual) + costo del vecino
+            neighbor_cell = maze.get_cell(neighbor)
+            g_provisional = self.g_score[current_pos] + neighbor_cell.cost
+
+            # 5c) Si el vecino NO está en OPEN (nuevo vecino)
+            if neighbor not in self.g_score:
+                # Calcular h y f para el vecino
+                h_neighbor = self._heuristic(neighbor, goal)
+                f_neighbor = g_provisional + h_neighbor
+
+                # Añadir a OPEN
+                self.open_set.append((f_neighbor, neighbor))
+
+                # Guardar en diccionarios
+                self.g_score[neighbor] = g_provisional
+                self.parent[neighbor] = current_pos
+
+            # 5d) Si YA está en OPEN pero con un costo mayor
+            elif g_provisional < self.g_score[neighbor]:
+                # Encontramos un camino mejor
+                # Actualizar g_score
+                self.g_score[neighbor] = g_provisional
+
+                # Recalcular f y añadir nueva tupla a OPEN
+                h_neighbor = self._heuristic(neighbor, goal)
+                f_neighbor = g_provisional + h_neighbor
+                self.open_set.append((f_neighbor, neighbor))
+
+                # Actualizar padre
+                self.parent[neighbor] = current_pos
+
+            # 5e) Si g_provisional >= g_score[neighbor]:
+            # No hacer nada (el camino anterior era mejor)
+
+        # PASO 6: Continuar búsqueda (volver a paso 2)
         return None
 
     def _heuristic(self, position: Position, goal: Position) -> float:
@@ -190,12 +229,17 @@ class AStarAgent(Agent):
         Returns:
             List of valid neighboring positions
         """
-        # TODO: Implement neighbor discovery
-        # 1. Try all four directions: NORTH, SOUTH, EAST, WEST
-        # 2. For each direction, check maze.can_move_to(position, direction)
-        # 3. If valid, add position.move(direction) to list
-        # 4. Return list of valid neighbors
-        pass
+        neighbors = []
+
+        # Intentar moverse en las cuatro direcciones cardinales
+        for direction in [Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST]:
+            # Comprobar si el movimiento es válido (no hay pared)
+            if maze.can_move_to(position, direction):
+                # Si es válido, añadir la nueva posición a la lista
+                new_position = position.move(direction)
+                neighbors.append(new_position)
+
+        return neighbors
 
     def _reconstruct_path(self, start: Position, goal: Position) -> List[Direction]:
         """
