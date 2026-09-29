@@ -15,7 +15,8 @@ class MazeGUIVisualizer:
     COLOR_AGENT = "#e74c3c"
     COLOR_START = "#2ecc71"
     COLOR_GOAL = "#f39c12"
-    COLOR_PATH = "#3498db"
+    COLOR_PATH = "#3498db"       # Camino final (azul)
+    COLOR_EXPLORED = "#d4a5d4"   # Nodos explorados (púrpura claro)
     COLOR_FRONTIER = "#9b59b6"
 
     def __init__(self, maze: Maze, show_path: bool = True):
@@ -30,6 +31,7 @@ class MazeGUIVisualizer:
         self.show_path = show_path
         self.path_taken = set()
         self.frontier = set()
+        self.explored = set()  # Nodos explorados por el algoritmo
 
         # GUI state
         self.running = False
@@ -93,6 +95,12 @@ class MazeGUIVisualizer:
             controls_frame,
             text="Reset",
             command=self._reset
+        ).pack(side=tk.LEFT, padx=5, pady=5)
+
+        ttk.Button(
+            controls_frame,
+            text="Close Window",
+            command=self._close_window
         ).pack(side=tk.LEFT, padx=5, pady=5)
 
         # Speed control
@@ -163,7 +171,7 @@ class MazeGUIVisualizer:
                 x2 = x1 + self.cell_size
                 y2 = y1 + self.cell_size
 
-                # Determine cell color
+                # Determine cell color (priority order)
                 if self.current_agent_pos and pos == self.current_agent_pos:
                     color = self.COLOR_AGENT
                 elif pos == self.maze.start:
@@ -171,7 +179,9 @@ class MazeGUIVisualizer:
                 elif pos == self.maze.goal:
                     color = self.COLOR_GOAL
                 elif self.show_path and pos in self.path_taken:
-                    color = self.COLOR_PATH
+                    color = self.COLOR_PATH  # Camino final (azul)
+                elif pos in self.explored:
+                    color = self.COLOR_EXPLORED  # Nodos explorados (púrpura claro)
                 elif pos in self.frontier:
                     color = self.COLOR_FRONTIER
                 else:
@@ -232,6 +242,15 @@ Status: {'PAUSED' if self.paused else 'RUNNING' if self.running else 'STOPPED'}
         self.speed_multiplier = float(value)
         self.speed_label.config(text=f"{self.speed_multiplier:.1f}x")
 
+    def update_explored(self, explored_positions: set):
+        """
+        Update the set of explored positions from algorithm.
+
+        Parameters:
+            explored_positions: Set of positions explored by the search algorithm
+        """
+        self.explored = explored_positions.copy()
+
     def show(self, agent_pos: Position = None, speed: float = 1.0):
         """
         Display maze and optionally update agent position.
@@ -282,22 +301,17 @@ Status: {'PAUSED' if self.paused else 'RUNNING' if self.running else 'STOPPED'}
         self.step_count = step_count
         self.path_cost = path_cost
 
-    def close(self, delay_ms: int = 3000):
+    def close(self):
         """
-        Close the visualization window after a delay.
+        Mark search as complete (window stays open).
 
-        Parameters:
-            delay_ms: Milliseconds to wait before closing (default 3 seconds)
+        The window will remain open to allow viewing results.
+        User can click "Close Window" button when done.
         """
         self.running = False
-        if self.root is not None:
-            try:
-                self.root.after(delay_ms, self._do_close)
-            except Exception:
-                pass
 
-    def _do_close(self):
-        """Actually close the window."""
+    def _close_window(self):
+        """Close the window when user clicks the button."""
         if self.root is not None:
             try:
                 self.root.quit()

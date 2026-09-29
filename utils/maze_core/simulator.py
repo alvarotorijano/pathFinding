@@ -108,6 +108,12 @@ class Simulator:
             if self.visualize:
                 self.visualizer.record_step(position)
                 self.visualizer.update_metrics(steps, path_cost)
+
+                # Actualizar nodos explorados del agente
+                debug = self.agent.debug_state()
+                if debug and debug.explored:
+                    self.visualizer.update_explored(debug.explored)
+
                 self.visualizer.show(position, self.speed)
 
             # Record trace
