@@ -40,6 +40,7 @@ class AStarAgent(Agent):
         Execute one step of the A* algorithm.
 
         On first call, initializes the algorithm with start position.
+        On subsequent calls, executes A* iterations or returns next direction from path.
 
         Parameters:
             observation: Current maze state and agent position
@@ -53,9 +54,45 @@ class AStarAgent(Agent):
             # Inicializar todas las estructuras de A*
             self._initialize_search(observation.current, observation.goal)
 
-        # TODO: Implementar PASO 2-6 del algoritmo A*
-        # Por ahora solo retornamos una dirección cualquiera
-        return Direction.NORTH
+        # Si ya tenemos un camino calculado, retornar el siguiente movimiento
+        if self.path:
+            if self.path_index < len(self.path):
+                direction = self.path[self.path_index]
+                self.path_index += 1
+                return direction
+            # Si terminamos el camino
+            return Direction.NORTH
+
+        # Ejecutar iteraciones de A* hasta encontrar camino o fallo
+        maze = observation.maze
+        goal = observation.goal
+
+        # Realizar búsqueda (puede tomar varios pasos)
+        while True:
+            result = self._search_step(maze, goal)
+
+            # Si encontró camino
+            if result is not None:
+                self.path = result
+                self.path_index = 0
+                if self.path:
+                    direction = self.path[self.path_index]
+                    self.path_index += 1
+                    return direction
+                return Direction.NORTH
+
+            # Si OPEN está vacía (sin solución)
+            if not self.open_set:
+                return Direction.NORTH
+
+            # Continuar búsqueda en la siguiente iteración
+            # (retornar una dirección por ahora)
+            if self.path_index < len(self.path):
+                direction = self.path[self.path_index]
+                self.path_index += 1
+                return direction
+
+            return Direction.NORTH
 
     def _initialize_search(self, start: Position, goal: Position) -> None:
         """
