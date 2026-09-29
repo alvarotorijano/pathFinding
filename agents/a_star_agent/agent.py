@@ -137,7 +137,11 @@ class AStarAgent(Agent):
         self.open_set.remove(best_node)
 
         # PASO 3: ¿Es el objetivo?
-        # TODO: Implementar comprobación de objetivo
+        if current_pos == goal:
+            # ¡Encontramos la solución!
+            # Reconstruir el camino desde inicio hasta objetivo
+            path = self._reconstruct_path(self.start_pos, current_pos)
+            return path
 
         # PASO 4: Cerrar el nodo
         # TODO: Mover a CLOSED
@@ -205,12 +209,29 @@ class AStarAgent(Agent):
         Returns:
             List of Directions representing the path
         """
-        # TODO: Implement path reconstruction
-        # 1. Build position chain: goal → parent[goal] → ... → start
-        # 2. Reverse to get: start → ... → goal
-        # 3. Convert consecutive positions to Direction
-        # 4. Return as list of Directions
-        pass
+        # Paso 1: Construir cadena de posiciones hacia atrás
+        # Empezar desde el objetivo y seguir los padres hasta el inicio
+        position_chain = []
+        current = goal
+
+        while current is not None:
+            position_chain.append(current)
+            current = self.parent[current]
+
+        # Paso 2: Invertir la cadena para ir de inicio a objetivo
+        # Ahora: start → ... → goal
+        position_chain.reverse()
+
+        # Paso 3: Convertir posiciones consecutivas a Directions
+        directions = []
+        for i in range(len(position_chain) - 1):
+            from_pos = position_chain[i]
+            to_pos = position_chain[i + 1]
+            direction = self._position_to_direction(from_pos, to_pos)
+            directions.append(direction)
+
+        # Paso 4: Retornar como lista de Directions
+        return directions
 
     def _position_to_direction(self, from_pos: Position, to_pos: Position) -> Direction:
         """
@@ -224,19 +245,27 @@ class AStarAgent(Agent):
 
         Returns:
             Direction of movement (NORTH, SOUTH, EAST, WEST)
-
-        Raises:
-            ValueError: If positions are not adjacent
         """
-        # TODO: Implement direction conversion
-        # 1. Calculate dx = to_pos.x - from_pos.x
-        # 2. Calculate dy = to_pos.y - from_pos.y
-        # 3. Return corresponding Direction:
-        #    - dy < 0 → NORTH
-        #    - dy > 0 → SOUTH
-        #    - dx > 0 → EAST
-        #    - dx < 0 → WEST
-        pass
+        # Calcular diferencias de coordenadas
+        dx = to_pos.x - from_pos.x
+        dy = to_pos.y - from_pos.y
+
+        # Convertir a Direction basado en el movimiento
+        # dy < 0 significa mover hacia arriba (NORTH)
+        if dy < 0:
+            return Direction.NORTH
+        # dy > 0 significa mover hacia abajo (SOUTH)
+        elif dy > 0:
+            return Direction.SOUTH
+        # dx > 0 significa mover hacia la derecha (EAST)
+        elif dx > 0:
+            return Direction.EAST
+        # dx < 0 significa mover hacia la izquierda (WEST)
+        elif dx < 0:
+            return Direction.WEST
+
+        # No debería llegar aquí (las posiciones son idénticas)
+        return Direction.NORTH
 
     def debug_state(self) -> Dict[str, any]:
         """
