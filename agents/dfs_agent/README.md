@@ -30,7 +30,7 @@ result = simulator.run()
 ## Usage Example
 
 ```bash
-python -m labyrinth run --maze maze.maze --agent dfs_agent
+python -m labyrinth run --maze-file maze.maze --agent dfs_agent
 ```
 
 ## When to Use

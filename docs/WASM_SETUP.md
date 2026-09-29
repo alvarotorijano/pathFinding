@@ -125,7 +125,7 @@ optimality_ratio: (skipped)
 
 **Without WASM (Student Environment):**
 ```
-Agent: bfs_agent
+Agent: dfs_agent
 Solved: YES ✓
 Steps: 45
 Path Cost: 67.3
@@ -135,7 +135,7 @@ Execution Time: 1.23ms
 
 **With WASM (Instructor Environment):**
 ```
-Agent: bfs_agent
+Agent: dfs_agent
 Solved: YES ✓
 Steps: 45
 Path Cost: 67.3

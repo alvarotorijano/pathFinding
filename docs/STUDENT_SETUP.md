@@ -60,14 +60,14 @@ python -c "import labyrinth_solver_wasm; print('✅ Solver ready')"
 # Generate a simple maze
 python -m labyrinth generate --width 10 --height 10 --type perfect --seed 42 --output test.maze
 
-# Solve it with the example BFS agent
-python -m labyrinth run --maze test.maze --agent bfs_agent
+# Solve it with the example DFS agent
+python -m labyrinth run --maze-file test.maze --agent dfs_agent
 ```
 
 You should see output like:
 ```
 ==================================================
-Agent: BFSAgent
+Agent: DFSAgent
 Solved: YES
 Steps: 47
 Path Cost: 46.0
@@ -91,8 +91,8 @@ Optimality: 39.1%
 ```
 labyrinth/
 ├── agents/              ← Put your agents here
-│   ├── bfs_agent/       ← Example: BFS implementation
-│   └── dfs_agent/       ← Example: DFS implementation
+│   ├── dfs_agent/       ← Example: DFS implementation
+│   └── random_agent/    ← Example: random baseline
 ├── utils/maze_core/     ← Framework (don't modify)
 ├── tests/               ← Test suite
 ├── mazes/               ← Maze files
@@ -111,7 +111,7 @@ labyrinth/
 python -m labyrinth generate --width 20 --height 20 --type perfect --seed 123 --output my_maze.maze
 
 # Run an agent on a maze
-python -m labyrinth run --maze my_maze.maze --agent bfs_agent --visualize
+python -m labyrinth run --maze-file my_maze.maze --agent dfs_agent --visualize
 
 # Run all tests
 pytest tests/ -v

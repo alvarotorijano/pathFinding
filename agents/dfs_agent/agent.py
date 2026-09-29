@@ -45,17 +45,18 @@ class DFSAgent(Agent):
 
         # Follow computed path if available
         if self.path_index + 1 < len(self.path):
+            current = self.path[self.path_index]
+            next_pos = self.path[self.path_index + 1]
             self.path_index += 1
-            current = self.path[self.path_index - 1]
-            next_pos = self.path[self.path_index]
 
             # Find direction to next position
             for direction in observation.maze.get_neighbors(current):
                 if current.move(direction) == next_pos:
                     return direction
 
-        # Expand frontier (DFS = stack)
-        if self.frontier:
+        # Expand frontier (DFS = stack). The full maze is known up front, so
+        # this runs to completion in one call instead of one pop per step.
+        while self.frontier:
             current = self.frontier.pop()
 
             for direction in observation.maze.get_neighbors(current):
@@ -73,7 +74,7 @@ class DFSAgent(Agent):
                             self.path.append(node)
                             node = self.parent.get(node)
                         self.path.reverse()
-                        self.path_index = 0
+                        self.path_index = 1
 
                         # Return first move
                         for d in observation.maze.get_neighbors(self.path[0]):

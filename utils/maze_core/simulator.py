@@ -6,7 +6,7 @@ from typing import Dict, Any, List
 from .agent import Agent
 from .models import Maze, Observation, Direction, MazeResult
 from .wasm_solver import solve_maze as wasm_solve_maze
-from .visualizer import MazeVisualizer
+from .gui_visualizer import MazeGUIVisualizer
 
 
 class Simulator:
@@ -33,7 +33,7 @@ class Simulator:
         self.max_steps = max_steps
         self.visualize = visualize
         self.speed = speed
-        self.visualizer = MazeVisualizer(maze) if visualize else None
+        self.visualizer = MazeGUIVisualizer(maze) if visualize else None
 
     def run(self, record_trace: bool = True) -> MazeResult:
         """
@@ -55,7 +55,6 @@ class Simulator:
 
         # Show initial maze
         if self.visualize:
-            print(f"\n{self.agent.__class__.__name__} solving maze ({self.maze.width}x{self.maze.height})...\n")
             self.visualizer.show(position, self.speed)
 
         while steps < self.max_steps:
@@ -73,6 +72,8 @@ class Simulator:
                 direction = self.agent.step(observation)
             except Exception as e:
                 # Agent error
+                if self.visualize:
+                    self.visualizer.close()
                 return MazeResult(
                     solved=False,
                     steps=steps,
@@ -106,8 +107,8 @@ class Simulator:
             # Visualize
             if self.visualize:
                 self.visualizer.record_step(position)
+                self.visualizer.update_metrics(steps, path_cost)
                 self.visualizer.show(position, self.speed)
-                print(f"Step {steps}: moved {direction.name}, cost={path_cost:.1f}")
 
             # Record trace
             if record_trace:
@@ -144,6 +145,9 @@ class Simulator:
                     optimal_solved = False
                     optimal_cost = 0.0
 
+                if self.visualize:
+                    self.visualizer.close()
+
                 return MazeResult(
                     solved=True,
                     steps=steps,
@@ -159,6 +163,8 @@ class Simulator:
 
         # Timeout
         execution_time = (time.time() - start_time) * 1000
+        if self.visualize:
+            self.visualizer.close()
         return MazeResult(
             solved=False,
             steps=steps,
